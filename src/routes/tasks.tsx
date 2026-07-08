@@ -245,29 +245,3 @@ function TasksPage() {
   );
 }
 
-// Small local wrapper to keep JSX tidy without pulling Textarea into a select-only column.
-function TextareaIsh({
-  value,
-  onChange,
-  placeholder,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-  placeholder?: string;
-}) {
-  return (
-    <textarea
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      rows={4}
-      className="w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring"
-    />
-  );
-}
-
-// Reassign the misused name above to the real component.
-// (JSX-level alias so the section reads cleanly.)
-const TextareaIshRef = TextareaIsh;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const _Textareaish = TextareaIshRef;
