@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useProfile } from "@/lib/profile-store";
 import { useTheme } from "@/lib/theme";
 
 const searchItems: { label: string; url: string; group: string }[] = [
@@ -37,6 +38,7 @@ const searchItems: { label: string; url: string; group: string }[] = [
 
 export function TopBar() {
   const { theme, toggle } = useTheme();
+  const profile = useProfile();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -100,17 +102,17 @@ export function TopBar() {
             <Button variant="ghost" className="gap-2 px-1.5">
               <Avatar className="h-7 w-7">
                 <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-xs font-semibold text-primary-foreground">
-                  AI
+                  {profile.initials}
                 </AvatarFallback>
               </Avatar>
-              <span className="hidden text-sm font-medium sm:inline">Alex Nguyen</span>
+              <span className="hidden text-sm font-medium sm:inline">{profile.name}</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel>
               <div className="flex flex-col">
-                <span>Alex Nguyen</span>
-                <span className="text-xs font-normal text-muted-foreground">alex@work.com</span>
+                <span>{profile.name}</span>
+                <span className="text-xs font-normal text-muted-foreground">{profile.email}</span>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
