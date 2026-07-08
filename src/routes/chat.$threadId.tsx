@@ -13,7 +13,7 @@ import { toast } from "sonner";
 
 import { AiDisclaimer } from "@/components/ai-disclaimer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { chatReply } from "@/lib/mock-ai";
 import { useChatThreads } from "@/lib/chat-store";
@@ -277,4 +277,4 @@ function ChatThread() {
   );
 }
 
-<CardContent /> as never;
+
