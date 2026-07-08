@@ -123,8 +123,6 @@ export function TopBar() {
                 Pro
               </Badge>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Sign out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
