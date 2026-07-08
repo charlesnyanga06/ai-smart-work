@@ -38,6 +38,7 @@ const searchItems: { label: string; url: string; group: string }[] = [
 
 export function TopBar() {
   const { theme, toggle } = useTheme();
+  const profile = useProfile();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
