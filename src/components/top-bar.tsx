@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useProfile } from "@/lib/profile-store";
 import { useTheme } from "@/lib/theme";
 
 const searchItems: { label: string; url: string; group: string }[] = [
