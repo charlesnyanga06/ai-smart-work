@@ -102,17 +102,17 @@ export function TopBar() {
             <Button variant="ghost" className="gap-2 px-1.5">
               <Avatar className="h-7 w-7">
                 <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-xs font-semibold text-primary-foreground">
-                  AI
+                  {profile.initials}
                 </AvatarFallback>
               </Avatar>
-              <span className="hidden text-sm font-medium sm:inline">Alex Nguyen</span>
+              <span className="hidden text-sm font-medium sm:inline">{profile.name}</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel>
               <div className="flex flex-col">
-                <span>Alex Nguyen</span>
-                <span className="text-xs font-normal text-muted-foreground">alex@work.com</span>
+                <span>{profile.name}</span>
+                <span className="text-xs font-normal text-muted-foreground">{profile.email}</span>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
