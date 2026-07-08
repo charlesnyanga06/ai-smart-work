@@ -128,10 +128,12 @@ function TasksPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Textarea-ish
+            <textarea
               value={idea}
-              onChange={(v) => setIdea(v)}
+              onChange={(e) => setIdea(e.target.value)}
               placeholder="e.g. Launch a new landing page next week."
+              rows={4}
+              className="w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring"
             />
             <Button onClick={runPlan} disabled={loading} className="w-full gap-1.5">
               <Sparkles className="h-4 w-4" />
