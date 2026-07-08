@@ -9,38 +9,188 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ResearchRouteImport } from './routes/research'
+import { Route as NotesRouteImport } from './routes/notes'
+import { Route as EmailRouteImport } from './routes/email'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ChatIndexRouteImport } from './routes/chat.index'
+import { Route as ChatThreadIdRouteImport } from './routes/chat.$threadId'
 
+const TasksRoute = TasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotesRoute = NotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmailRoute = EmailRouteImport.update({
+  id: '/email',
+  path: '/email',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChatIndexRoute = ChatIndexRouteImport.update({
+  id: '/chat/',
+  path: '/chat/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatThreadIdRoute = ChatThreadIdRouteImport.update({
+  id: '/chat/$threadId',
+  path: '/chat/$threadId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/email': typeof EmailRoute
+  '/notes': typeof NotesRoute
+  '/research': typeof ResearchRoute
+  '/settings': typeof SettingsRoute
+  '/tasks': typeof TasksRoute
+  '/chat/$threadId': typeof ChatThreadIdRoute
+  '/chat/': typeof ChatIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/email': typeof EmailRoute
+  '/notes': typeof NotesRoute
+  '/research': typeof ResearchRoute
+  '/settings': typeof SettingsRoute
+  '/tasks': typeof TasksRoute
+  '/chat/$threadId': typeof ChatThreadIdRoute
+  '/chat': typeof ChatIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/email': typeof EmailRoute
+  '/notes': typeof NotesRoute
+  '/research': typeof ResearchRoute
+  '/settings': typeof SettingsRoute
+  '/tasks': typeof TasksRoute
+  '/chat/$threadId': typeof ChatThreadIdRoute
+  '/chat/': typeof ChatIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/analytics'
+    | '/email'
+    | '/notes'
+    | '/research'
+    | '/settings'
+    | '/tasks'
+    | '/chat/$threadId'
+    | '/chat/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/analytics'
+    | '/email'
+    | '/notes'
+    | '/research'
+    | '/settings'
+    | '/tasks'
+    | '/chat/$threadId'
+    | '/chat'
+  id:
+    | '__root__'
+    | '/'
+    | '/analytics'
+    | '/email'
+    | '/notes'
+    | '/research'
+    | '/settings'
+    | '/tasks'
+    | '/chat/$threadId'
+    | '/chat/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalyticsRoute: typeof AnalyticsRoute
+  EmailRoute: typeof EmailRoute
+  NotesRoute: typeof NotesRoute
+  ResearchRoute: typeof ResearchRoute
+  SettingsRoute: typeof SettingsRoute
+  TasksRoute: typeof TasksRoute
+  ChatThreadIdRoute: typeof ChatThreadIdRoute
+  ChatIndexRoute: typeof ChatIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tasks': {
+      id: '/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notes': {
+      id: '/notes'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof NotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/email': {
+      id: '/email'
+      path: '/email'
+      fullPath: '/email'
+      preLoaderRoute: typeof EmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +198,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chat/': {
+      id: '/chat/'
+      path: '/chat'
+      fullPath: '/chat/'
+      preLoaderRoute: typeof ChatIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat/$threadId': {
+      id: '/chat/$threadId'
+      path: '/chat/$threadId'
+      fullPath: '/chat/$threadId'
+      preLoaderRoute: typeof ChatThreadIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalyticsRoute: AnalyticsRoute,
+  EmailRoute: EmailRoute,
+  NotesRoute: NotesRoute,
+  ResearchRoute: ResearchRoute,
+  SettingsRoute: SettingsRoute,
+  TasksRoute: TasksRoute,
+  ChatThreadIdRoute: ChatThreadIdRoute,
+  ChatIndexRoute: ChatIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,3 +1,4 @@
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -11,6 +12,11 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { AppSidebar } from "../components/app-sidebar";
+import { TopBar } from "../components/top-bar";
+import { SidebarInset, SidebarProvider } from "../components/ui/sidebar";
+import { ThemeProvider } from "../lib/theme";
+import { Toaster } from "../components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -77,20 +83,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "AI Workplace Productivity Hub" },
+      {
+        name: "description",
+        content:
+          "One AI-powered workspace for email, meeting notes, tasks, research, and chat. Get work done faster with a clean, modern productivity hub.",
+      },
+      { name: "author", content: "Workplace AI" },
+      { property: "og:title", content: "AI Workplace Productivity Hub" },
+      {
+        property: "og:description",
+        content:
+          "One AI-powered workspace for email, meeting notes, tasks, research, and chat.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
@@ -119,8 +129,20 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <ThemeProvider>
+        <SidebarProvider>
+          <AppSidebar />
+          <SidebarInset>
+            <TopBar />
+            <main className="min-h-[calc(100vh-3.5rem)] w-full">
+              <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <Outlet />
+              </div>
+            </main>
+          </SidebarInset>
+        </SidebarProvider>
+        <Toaster richColors position="top-right" />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
