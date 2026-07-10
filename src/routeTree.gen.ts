@@ -18,6 +18,7 @@ import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ChatIndexRouteImport } from './routes/chat.index'
 import { Route as ChatThreadIdRouteImport } from './routes/chat.$threadId'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 
 const TasksRoute = TasksRouteImport.update({
   id: '/tasks',
@@ -64,6 +65,11 @@ const ChatThreadIdRoute = ChatThreadIdRouteImport.update({
   path: '/chat/$threadId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
   '/tasks': typeof TasksRoute
+  '/api/chat': typeof ApiChatRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
   '/chat/': typeof ChatIndexRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
   '/tasks': typeof TasksRoute
+  '/api/chat': typeof ApiChatRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
   '/chat': typeof ChatIndexRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
   '/tasks': typeof TasksRoute
+  '/api/chat': typeof ApiChatRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
   '/chat/': typeof ChatIndexRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/research'
     | '/settings'
     | '/tasks'
+    | '/api/chat'
     | '/chat/$threadId'
     | '/chat/'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/research'
     | '/settings'
     | '/tasks'
+    | '/api/chat'
     | '/chat/$threadId'
     | '/chat'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/research'
     | '/settings'
     | '/tasks'
+    | '/api/chat'
     | '/chat/$threadId'
     | '/chat/'
   fileRoutesById: FileRoutesById
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   ResearchRoute: typeof ResearchRoute
   SettingsRoute: typeof SettingsRoute
   TasksRoute: typeof TasksRoute
+  ApiChatRoute: typeof ApiChatRoute
   ChatThreadIdRoute: typeof ChatThreadIdRoute
   ChatIndexRoute: typeof ChatIndexRoute
 }
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChatThreadIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -223,6 +243,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResearchRoute: ResearchRoute,
   SettingsRoute: SettingsRoute,
   TasksRoute: TasksRoute,
+  ApiChatRoute: ApiChatRoute,
   ChatThreadIdRoute: ChatThreadIdRoute,
   ChatIndexRoute: ChatIndexRoute,
 }
