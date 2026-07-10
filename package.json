@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^3.0.6",
+    "@ai-sdk/react": "^4.0.19",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/space-grotesk": "^5.2.10",
     "@hookform/resolvers": "^5.2.2",
