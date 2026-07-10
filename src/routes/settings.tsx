@@ -35,6 +35,15 @@ function SettingsPage() {
     role: profile.role,
     timezone: profile.timezone,
   });
+
+  useEffect(() => {
+    setForm({
+      name: profile.name,
+      email: profile.email,
+      role: profile.role,
+      timezone: profile.timezone,
+    });
+  }, [profile]);
   const [errors, setErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
 
   const set = <K extends keyof typeof form>(key: K, value: string) => {
