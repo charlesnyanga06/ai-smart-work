@@ -15,7 +15,7 @@ import { AiDisclaimer } from "@/components/ai-disclaimer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { chatReply } from "@/lib/mock-ai";
+import ReactMarkdown from "react-markdown";
 import { useChatThreads } from "@/lib/chat-store";
 import { formatDistanceToNow } from "date-fns";
 import { cn } from "@/lib/utils";
