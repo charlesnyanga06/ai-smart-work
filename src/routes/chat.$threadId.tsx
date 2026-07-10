@@ -254,13 +254,17 @@ function ChatThread() {
                   ) : null}
                   <div
                     className={cn(
-                      "max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap",
+                      "max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
                       m.role === "user"
-                        ? "gradient-brand text-white shadow-elegant"
-                        : "bg-secondary text-secondary-foreground",
+                        ? "gradient-brand text-white shadow-elegant whitespace-pre-wrap"
+                        : "bg-secondary text-secondary-foreground prose prose-sm dark:prose-invert max-w-none prose-pre:bg-background prose-pre:text-foreground",
                     )}
                   >
-                    {m.content}
+                    {m.role === "assistant" ? (
+                      <ReactMarkdown>{m.content}</ReactMarkdown>
+                    ) : (
+                      m.content
+                    )}
                   </div>
                 </div>
               ))
@@ -270,14 +274,21 @@ function ChatThread() {
                 <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg gradient-brand text-white">
                   <Sparkles className="h-4 w-4" />
                 </div>
-                <div className="flex items-center gap-1 rounded-2xl bg-secondary px-4 py-3">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground" />
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:120ms]" />
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:240ms]" />
-                </div>
+                {streaming ? (
+                  <div className="max-w-[85%] rounded-2xl bg-secondary px-4 py-2.5 text-sm leading-relaxed text-secondary-foreground prose prose-sm dark:prose-invert max-w-none prose-pre:bg-background prose-pre:text-foreground">
+                    <ReactMarkdown>{streaming}</ReactMarkdown>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1 rounded-2xl bg-secondary px-4 py-3">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground" />
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:120ms]" />
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:240ms]" />
+                  </div>
+                )}
               </div>
             ) : null}
             <div ref={bottomRef} />
+
           </div>
         </ScrollArea>
 
