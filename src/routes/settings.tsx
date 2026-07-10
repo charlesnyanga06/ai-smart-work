@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Bell, Moon, Palette, Settings as SettingsIcon, Shield, Sun, User } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -35,6 +35,15 @@ function SettingsPage() {
     role: profile.role,
     timezone: profile.timezone,
   });
+
+  useEffect(() => {
+    setForm({
+      name: profile.name,
+      email: profile.email,
+      role: profile.role,
+      timezone: profile.timezone,
+    });
+  }, [profile]);
   const [errors, setErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
 
   const set = <K extends keyof typeof form>(key: K, value: string) => {
