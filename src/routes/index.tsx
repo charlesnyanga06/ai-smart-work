@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { useProfile } from "@/lib/profile-store";
 import { useTasks } from "@/lib/tasks-store";
 import { format, formatDistanceToNow, isPast } from "date-fns";
 
@@ -69,6 +70,7 @@ const tips = [
 
 function Dashboard() {
   const { tasks } = useTasks();
+  const profile = useProfile();
   const upcoming = tasks
     .filter((t) => !t.done)
     .sort((a, b) => new Date(a.due).getTime() - new Date(b.due).getTime())
@@ -90,7 +92,7 @@ function Dashboard() {
               <Sparkles className="mr-1 h-3 w-3" /> Your AI workspace
             </Badge>
             <h2 className="text-2xl font-bold leading-tight sm:text-3xl">
-              Welcome back, Alex 👋
+              Welcome back, {profile.name} 👋
             </h2>
             <p className="mt-2 text-sm text-white/80 sm:text-base">
               You have {upcoming.length} tasks coming up and {completed} completed this week.

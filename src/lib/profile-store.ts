@@ -50,7 +50,7 @@ export function updateProfile(patch: Partial<Profile>) {
 }
 
 export function useProfile(): Profile {
-  const [p, setP] = useState<Profile>(() => read());
+  const [p, setP] = useState<Profile>(DEFAULT_PROFILE);
   useEffect(() => {
     setP(read());
     const l: Listener = (n) => setP(n);
