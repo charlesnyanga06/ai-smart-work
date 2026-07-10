@@ -59,16 +59,52 @@ function ChatThread() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [active?.messages.length, sending]);
 
+  const [streaming, setStreaming] = useState("");
+
   const send = async () => {
-    if (!input.trim() || !active) return;
+    if (!input.trim() || !active || sending) return;
     const text = input.trim();
     setInput("");
     appendMessage(active.id, { role: "user", content: text });
     setSending(true);
+    setStreaming("");
     try {
-      const reply = await chatReply(text);
-      appendMessage(active.id, { role: "assistant", content: reply });
+      const history = [
+        ...active.messages.map((m) => ({ role: m.role, content: m.content })),
+        { role: "user" as const, content: text },
+      ];
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history }),
+      });
+      if (!res.ok || !res.body) {
+        const msg = res.status === 402
+          ? "AI credits are exhausted. Please add credits to continue."
+          : res.status === 429
+            ? "Rate limit reached. Please wait a moment and try again."
+            : `Request failed (${res.status}). Please try again.`;
+        toast.error(msg);
+        setSending(false);
+        return;
+      }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let acc = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        acc += decoder.decode(value, { stream: true });
+        setStreaming(acc);
+      }
+      if (acc.trim()) {
+        appendMessage(active.id, { role: "assistant", content: acc });
+      }
+    } catch (err) {
+      toast.error("Something went wrong. Please try again.");
+      console.error(err);
     } finally {
+      setStreaming("");
       setSending(false);
       requestAnimationFrame(() => inputRef.current?.focus());
     }
